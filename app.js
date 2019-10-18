@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
-var usuarioRouter = require("./routes/usuario");
-var animalesRouter = require("./routes/animales");
+//var usuarioRouter = require("./routes/usuario");
+//var animalesRouter = require("./routes/animales");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -41,7 +41,7 @@ app.listen(app.get('port'), () => {
       } 
     });
     });
-
+/*
     app.post('/usuario', (req, res) => {
         pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)', (err, rows) => {
             console.log(err, rows);
@@ -49,4 +49,4 @@ app.listen(app.get('port'), () => {
         });
         });
 
-    
+    */
