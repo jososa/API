@@ -42,7 +42,7 @@ app.listen(app.get('port'), () => {
     });
     });
 
-
+/*
     
     var cols = [req.body.nombre, req.body.apellido, req.body.fnacimiento, req.body.email, req.body.telefono, req.body.contrasenia];
     app.post('/usuario', (req, res) => {
@@ -51,3 +51,4 @@ app.listen(app.get('port'), () => {
             //pool.end();
         });
         });
+        */
