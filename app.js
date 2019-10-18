@@ -42,13 +42,11 @@ app.listen(app.get('port'), () => {
     });
     });
 
-/*
-    
-    var cols = [req.body.nombre, req.body.apellido, req.body.fnacimiento, req.body.email, req.body.telefono, req.body.contrasenia];
+
+    const { nombre, apellido, fnacimiento, email, telefono, contrasenia } = request.body
     app.post('/usuario', (req, res) => {
-        pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)',cols, (err, rows) => {
+        pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)', (err, rows) => {
             console.log(err, rows);
             //pool.end();
         });
         });
-        */
