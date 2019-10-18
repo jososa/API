@@ -25,7 +25,7 @@ app.listen(app.get('port'), () => {
   });
   
   const { Pool, Client } = require('pg');
-  const connectionString = 'postgres://nevamjaxyoehqj:35429072796790780dcb3b03a4076b9f9ffe565d15453ec8084bf32aa9e3df0c@ec2-184-73-216-48.compute-1.amazonaws.com:5432/dejijge07n9p6s';
+  const connectionString = 'postgres://rxtonxhonkuoch:0dcb72e4bbd6ca6319a95c26361bc84ef2f1b41e0b1ba57df7d1097c8f723b62@ec2-23-23-182-18.compute-1.amazonaws.com:5432/dau2foplodoso5';
   
   const pool = new Pool({
     connectionString: connectionString,
