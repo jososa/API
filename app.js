@@ -41,12 +41,10 @@ app.listen(app.get('port'), () => {
       } 
     });
     });
-/*
+
     app.post('/usuario', (req, res) => {
         pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)', (err, rows) => {
             console.log(err, rows);
             pool.end();
         });
         });
-
-    */
