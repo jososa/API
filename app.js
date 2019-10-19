@@ -42,7 +42,7 @@ app.listen(app.get('port'), () => {
     });
     });
 
-/*
+
     router
           .route('/registro')
           .post((req, res) => {
@@ -57,4 +57,3 @@ app.listen(app.get('port'), () => {
                 //pool.end();
             });
             });
-    */
