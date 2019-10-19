@@ -142,7 +142,7 @@ app.listen(app.get('port'), () => {
 
     app.put('/animales/:id',(req,res)=>{
       const id = req.params.id;
-      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
+      const response = {tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario} = req.body;
       pool.query('UPDATE animales SET tipo=$1, raza=$2, genero=$3, descripcion=$4, latitud=$5, longitud=$6, estado=$7, imagen=$8, idusuario=$9 WHERE idanimal=$10',
       [tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, id]);
       console.log(response);
