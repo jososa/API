@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var router = express.Router();
 var bodyParser = require("body-parser");
 //var usuarioRouter = require("./routes/usuario");
 //var animalesRouter = require("./routes/animales");
