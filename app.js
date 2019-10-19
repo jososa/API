@@ -42,7 +42,7 @@ app.listen(app.get('port'), () => {
       } 
     });
     });
-    
+
             app.post('/registro', (req, res) => {
               const data = {
                 nombre : req.body.nombre ,
@@ -70,6 +70,10 @@ app.listen(app.get('port'), () => {
               });
             });
             
+            app.get('/usuario/:id', (req,res) => {
+              const id = req.params.id;
+              res.send(`Usuario ${id} perfil`);
+            });
 
 
 
