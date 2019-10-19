@@ -72,7 +72,15 @@ app.listen(app.get('port'), () => {
             
             app.get('/usuario/:id', (req,res) => {
               const id = req.params.id;
-              res.send(`Usuario ${id} perfil`);
+              pool.query('SELECT * FROM usuarios WHERE id=$1', [id], (err, rows) => {
+                if(!err) {
+                  res.json(rows.rows);
+                  //pool.end();
+                } else {
+                  console.log(err);
+                } 
+              });
+              //res.send(`Usuario ${id} perfil`);
             });
 
 
