@@ -84,7 +84,7 @@ app.listen(app.get('port'), () => {
       const id = req.params.id;
       const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
       pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=$6 WHERE idusuario=$7',
-      [nombre,apellido,fnacimiento,email,telefono,contrasenia, idusuario]);
+      [nombre,apellido,fnacimiento,email,telefono,contrasenia, id]);
       console.log(response);
       res.json('User Updated successfully');
     });
