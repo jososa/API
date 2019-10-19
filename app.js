@@ -72,7 +72,7 @@ app.listen(app.get('port'), () => {
             
             app.get('/usuario/:id', (req,res) => {
               const id = req.params.id;
-             const response = await pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
+             const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
               res.json(response.rows);
             });
 
