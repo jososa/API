@@ -31,7 +31,9 @@ app.listen(app.get('port'), () => {
     connectionString: connectionString,
   });
   
-  app.get('/usuario', (req, res) => {
+  router
+  .route('/usuario')
+  .get((req, res) => {
     pool.query('SELECT * FROM usuarios', (err, rows) => {
       if(!err) {
         res.json(rows.rows);
@@ -42,7 +44,7 @@ app.listen(app.get('port'), () => {
     });
     });
 
-
+/*
     router
           .route('/registro')
           .post((req, res) => {
@@ -57,3 +59,4 @@ app.listen(app.get('port'), () => {
                 //pool.end();
             });
             });
+*/
