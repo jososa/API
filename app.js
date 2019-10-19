@@ -36,7 +36,6 @@ app.listen(app.get('port'), () => {
     pool.query('SELECT * FROM usuarios', (err, rows) => {
       if(!err) {
         res.json(rows.rows);
-        //pool.end();
       } else {
         console.log(err);
       } 
@@ -48,12 +47,10 @@ app.listen(app.get('port'), () => {
       pool.query('SELECT * FROM usuarios WHERE idusuario=$1',[id], (err, rows) => {
         if(!err) {
           res.json(rows.rows);
-          //pool.end();
         } else {
           console.log(err);
         } 
       });
-      //res.send(`Student ${id} profile`);
     });
 
             app.post('/registro', (req, res) => {
@@ -76,12 +73,21 @@ app.listen(app.get('port'), () => {
                     res.status(400).json({error});
                   }
                   res.status(202).send({
-                    status: 'SUccessful',
+                    status: 'Successful',
                     result: result.rows[0],
                   });
                 });
               });
             });
+
+    app.put('/usuario/:id',(req,res)=>{
+      const id = req.params.id;
+      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
+      pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=$6 WHERE idusuario=$7',
+      [nombre,apellido,fnacimiento,email,telefono,contrasenia]);
+      console.log(response);
+      res.json('User Updated successfully');
+    });
             
 
 module.exports = router;
