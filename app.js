@@ -70,9 +70,9 @@ app.listen(app.get('port'), () => {
               });
             });
             
-            app.get('/usuario/:id', (req,res) => {
-              const id = req.params.id;
-             const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
+            app.get('/usuario/:idusuario', (req,res) => {
+              const idusuario = req.params.id;
+             const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [idusuario]);
               res.json(response.rows);
             });
 
