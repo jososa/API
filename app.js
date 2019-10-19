@@ -43,6 +43,12 @@ app.listen(app.get('port'), () => {
     });
     });
 
+    app.get('/usuario/:id', (req,res) => {
+      const id = req.params.id;
+     const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
+      res.json(response.response);
+    });
+
             app.post('/registro', (req, res) => {
               const data = {
                 nombre : req.body.nombre ,
@@ -70,10 +76,5 @@ app.listen(app.get('port'), () => {
               });
             });
             
-            app.get('/usuario/:id', (req,res) => {
-              const id = req.params.id;
-             const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
-              res.json(response.rows);
-            });
 
 module.exports = router;
