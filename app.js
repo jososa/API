@@ -42,19 +42,35 @@ app.listen(app.get('port'), () => {
       } 
     });
     });
+    
+            app.post('/registro', (req, res) => {
+              const data = {
+                nombre : req.body.nombre ,
+                apellido : req.body.apellido,
+                fnacimiento : req.body.fnacimiento,
+                email : req.body.email,
+                telefono : req.body.telefono,
+                contrasenia : req.body.contrasenia,
+              }
+              
+              pool.connect((err, client, done) => {
+                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+                const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia];
+            
+                client.query(query, values, (error, result) => {
+                  done();
+                  if (error) {
+                    res.status(400).json({error});
+                  }
+                  res.status(202).send({
+                    status: 'SUccessful',
+                    result: result.rows[0],
+                  });
+                });
+              });
+            });
+            
 
-          app.post('/registro',(req, res) => {
-            var cols = [nombre, apellido, fnacimiento, email, telefono, contrasenia] = req.body;
-            pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *', cols, (err, rows) => {
-                
-              if (err) {
-                console.log("Error Saving : %s ", err);
-            }
-            res.redirect('/registro');
-            //console.log(err, rows);
-                //pool.end();
-            });
-            });
 
 
 module.exports = router;
