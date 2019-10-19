@@ -131,6 +131,15 @@ app.listen(app.get('port'), () => {
               });
             });
 
+    app.post('/login',(req,res)=>{
+      const response = {email, contrasenia} = req.body;
+      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2'), [email, contrasenia];
+      console.log(response);
+      res.status(200).send({
+        status: 'Login Successfully'
+      });
+    });
+
     app.put('/usuario/:id',(req,res)=>{
       const id = req.params.id;
       const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
