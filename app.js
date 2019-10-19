@@ -32,9 +32,7 @@ app.listen(app.get('port'), () => {
     connectionString: connectionString,
   });
   
-  router
-  .route('/usuario')
-  .get((req, res) => {
+  app.get('/usuario',(req, res) => {
     pool.query('SELECT * FROM usuarios', (err, rows) => {
       if(!err) {
         res.json(rows.rows);
@@ -45,9 +43,7 @@ app.listen(app.get('port'), () => {
     });
     });
 
-    router
-          .route('/registro')
-          .post((req, res) => {
+          app.post('/registro',(req, res) => {
             var cols = [nombre, apellido, fnacimiento, email, telefono, contrasenia] = req.body;
             pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *', cols, (err, rows) => {
                 
