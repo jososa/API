@@ -42,6 +42,16 @@ app.listen(app.get('port'), () => {
     });
     });
 
+    app.get('/animales',(req, res) => {
+      pool.query('SELECT * FROM animales', (err, rows) => {
+        if(!err) {
+          res.json(rows.rows);
+        } else {
+          console.log(err);
+        } 
+      });
+      });
+
     app.get('/usuario/:id', (req,res) => {
       const id = req.params.id;
       pool.query('SELECT * FROM usuarios WHERE idusuario=$1',[id], (err, rows) => {
@@ -53,7 +63,48 @@ app.listen(app.get('port'), () => {
       });
     });
 
-            app.post('/registro', (req, res) => {
+    app.get('/animales/:id', (req,res) => {
+      const id = req.params.id;
+      pool.query('SELECT * FROM animales WHERE idanimal=$1',[id], (err, rows) => {
+        if(!err) {
+          res.json(rows.rows);
+        } else {
+          console.log(err);
+        } 
+      });
+    });
+
+    app.post('/animales', (req, res) => {
+      const data = {
+        tipo : req.body.tipo ,
+        raza : req.body.raza,
+        genero : req.body.genero,
+        descripcion : req.body.descripcion,
+        latitud : req.body.latitud,
+        longitud : req.body.longitud,
+        estado : req.body.estado,
+        imagen : req.body.imagen,
+        idusuario : req.body.idusuario,
+      }
+      
+      pool.connect((err, client, done) => {
+        const query = 'INSERT INTO animales (tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+        const values = [data.tipo, data.raza, data.genero, data.descripcion, data.latitud, data.longitud, data.estado, data.imagen, data.idusuario];
+    
+        client.query(query, values, (error, result) => {
+          done();
+          if (error) {
+            res.status(400).json({error});
+          }
+          res.status(202).send({
+            status: 'Successful',
+            result: result.rows[0],
+          });
+        });
+      });
+    });
+
+            app.post('/usuario', (req, res) => {
               const data = {
                 nombre : req.body.nombre ,
                 apellido : req.body.apellido,
@@ -88,6 +139,14 @@ app.listen(app.get('port'), () => {
       console.log(response);
       res.json('User Updated successfully');
     });
-            
+
+    app.put('/animales/:id',(req,res)=>{
+      const id = req.params.id;
+      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
+      pool.query('UPDATE animales SET tipo=$1, raza=$2, genero=$3, descripcion=$4, latitud=$5, longitud=$6, estado=$7, imagen=$8, idusuario=$9 WHERE idanimal=$10',
+      [tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, id]);
+      console.log(response);
+      res.json('Animal Updated successfully');
+    });
 
 module.exports = router;
