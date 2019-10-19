@@ -45,8 +45,15 @@ app.listen(app.get('port'), () => {
 
     app.get('/usuario/:id', (req,res) => {
       const id = req.params.id;
-     const response = pool.query('SELECT * FROM usuarios WHERE idusuario=$1', [id]);
-      res.json(response.response);
+      pool.query('SELECT * FROM usuarios WHERE idusuario=$1',[id], (err, rows) => {
+        if(!err) {
+          res.json(rows.rows);
+          //pool.end();
+        } else {
+          console.log(err);
+        } 
+      });
+      //res.send(`Student ${id} profile`);
     });
 
             app.post('/registro', (req, res) => {
