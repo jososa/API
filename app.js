@@ -30,32 +30,31 @@ app.listen(app.get('port'), () => {
   const pool = new Pool({
     connectionString: connectionString,
   });
+  
+  app.get('/usuario', (req, res) => {
+    pool.query('SELECT * FROM usuarios', (err, rows) => {
+      if(!err) {
+        res.json(rows.rows);
+        //pool.end();
+      } else {
+        console.log(err);
+      } 
+    });
+    });
+
 
     router
-        .route('/usuario')
-        .get((req, res) => {
-      pool.query('SELECT * FROM usuarios', (err, rows) => {
-        if(!err) {
-          res.json(rows.rows);
-          //pool.end();
-        } else {
-          console.log(err);
-        } 
-      });
-      });
-/*
-    router
-        .route('/registro')
-        .post((req, res) => {
-          var cols = [nombre, apellido, fnacimiento, email, telefono, contrasenia] = req.body;
-          pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *', cols, (err, rows) => {
+          .route('/registro')
+          .post((req, res) => {
+            var cols = [nombre, apellido, fnacimiento, email, telefono, contrasenia] = req.body;
+            pool.query('INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *', cols, (err, rows) => {
                 
-            if (err) {
-              console.log("Error Saving : %s ", err);
+              if (err) {
+                console.log("Error Saving : %s ", err);
             }
             res.redirect('/registro');
             //console.log(err, rows);
                 //pool.end();
             });
             });
-    */
+    
