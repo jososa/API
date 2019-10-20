@@ -122,7 +122,11 @@ app.listen(app.get('port'), () => {
                 client.query(query, values, (error, result) => {
                   done();
                   if (error) {
-                    res.status(400).json({error});
+                    res.status(400).send({
+                      status: 'Failed',
+                      message: 'Email already exists',
+                      });
+                    //.json({error});
                   }
                   res.status(202).send({
                     status: 'Successful',
