@@ -135,16 +135,17 @@ app.listen(app.get('port'), () => {
     app.post('/login',(req,res)=>{
       const response = {email, contrasenia} = req.body;
       pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2',[email, contrasenia], (err, rows) => {
-        if(!err) {
-          res.status(200).send({
-            status: 'Login Successfully'
+        if(res.rows < '1') {
+          res.status(404).send({
+          status: 'Failed',
+          message: 'No user information found',
           });
         } else {
-          console.log(err);
-          res.status(404).send({
-            status: 'Failed',
-            message: 'No user information found',
-            });
+          res.status(200).send({
+          status: 'Successful',
+          message: 'Login Information retrieved',
+          usuarios: rows.rows,
+          });
         } 
       });
     });
