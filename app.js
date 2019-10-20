@@ -96,7 +96,7 @@ app.listen(app.get('port'), () => {
           if (error) {
             res.status(400).json({error});
           }
-          res.status(202).send({
+          res.status(200).send({
             status: 'Successful',
             result: result.rows[0],
           });
@@ -127,7 +127,7 @@ app.listen(app.get('port'), () => {
                       message: 'Email already exists',
                       });
                   }
-                  res.status(202).send({
+                  res.status(200).send({
                     status: 'Successful',
                     result: result.rows[0],
                   });
