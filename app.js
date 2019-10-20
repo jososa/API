@@ -141,7 +141,7 @@ app.listen(app.get('port'), () => {
         if(rows.rows < '1') {
           res.status(400).send({
           status: 'Failed',
-          message: 'No user information found',
+          message: 'Usuario y/o Contraseña incorrecto',
           });
         } else {
           res.status(200).send({
