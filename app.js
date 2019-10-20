@@ -132,31 +132,14 @@ app.listen(app.get('port'), () => {
               });
             });
 
-            app.post('/usuarios', (req, res) => {
-              const response = {email, contrasenia} = req.body;
-              pool.connect((err, client, done) => {
-                const query = 'usuarios WHERE idusuario=$1', [email, contrasenia];
-                console.log(response);
-                client.query(query, (error, result) => {
-                  done();
-                  if (error) {
-                    res.status(400).json({error})
-                  } 
-                  if(result.rows < '1') {
-                    res.status(404).send({
-                    status: 'Failed',
-                    message: 'No user information found',
-                    });
-                  } else {
-                    res.status(200).send({
-                    status: 'Successful',
-                    message: 'Login Information retrieved',
-                    usuarios: result.rows,
-                    });
-                  }
-                });
-              });
-            });
+    app.post('/login',(req,res)=>{
+      const response = {email, contrasenia} = req.body;
+      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2'), [email, contrasenia];
+      console.log(response);
+      res.status(200).send({
+        status: 'Login Successfully'
+      });
+    });
 
     app.put('/usuario/:id',(req,res)=>{
       const id = req.params.id;
