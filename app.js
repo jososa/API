@@ -136,9 +136,15 @@ app.listen(app.get('port'), () => {
       const response = {email, contrasenia} = req.body;
       pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2',[email, contrasenia], (err, rows) => {
         if(!err) {
-          res.status(200).json(rows.rows);
+          res.status(200).send({
+            status: 'Login Successfully'
+          });
         } else {
           console.log(err);
+          res.status(404).send({
+            status: 'Failed',
+            message: 'No user information found',
+            });
         } 
       });
     });
