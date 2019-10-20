@@ -112,11 +112,12 @@ app.listen(app.get('port'), () => {
                 email : req.body.email,
                 telefono : req.body.telefono,
                 contrasenia : req.body.contrasenia,
+                imagen : req.body.imagen,
               }
               
               pool.connect((err, client, done) => {
-                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
-                const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia];
+                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia, imagen) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+                const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen];
             
                 client.query(query, values, (error, result) => {
                   done();
@@ -142,9 +143,9 @@ app.listen(app.get('port'), () => {
 
     app.put('/usuario/:id',(req,res)=>{
       const id = req.params.id;
-      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia} = req.body;
-      pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=$6 WHERE idusuario=$7',
-      [nombre,apellido,fnacimiento,email,telefono,contrasenia, id]);
+      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia,imagen} = req.body;
+      pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=$6, imagen=$7 WHERE idusuario=$8',
+      [nombre,apellido,fnacimiento,email,telefono,contrasenia,imagen, id]);
       console.log(response);
       res.json('User Updated successfully');
     });
