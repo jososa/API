@@ -136,7 +136,7 @@ app.listen(app.get('port'), () => {
       const response = {email, contrasenia} = req.body;
       pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2'), [email, contrasenia];
       console.log(response);
-      res.status(200).send({
+      res.status(200).json(response).send({
         status: 'Login Successfully'
       });
     });
