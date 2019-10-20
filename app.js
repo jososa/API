@@ -126,7 +126,6 @@ app.listen(app.get('port'), () => {
                       status: 'Failed',
                       message: 'Email already exists',
                       });
-                    //.json({error});
                   }
                   res.status(202).send({
                     status: 'Successful',
@@ -140,7 +139,7 @@ app.listen(app.get('port'), () => {
       const response = {email, contrasenia} = req.body;
       pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2',[email, contrasenia], (err, rows) => {
         if(rows.rows < '1') {
-          res.status(404).send({
+          res.status(400).send({
           status: 'Failed',
           message: 'No user information found',
           });
