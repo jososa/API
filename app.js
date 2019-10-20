@@ -134,10 +134,12 @@ app.listen(app.get('port'), () => {
 
     app.post('/login',(req,res)=>{
       const response = {email, contrasenia} = req.body;
-      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2'), [email, contrasenia];
-      console.log(response);
-      res.status(200).json(response).send({
-        status: 'Login Successfully'
+      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2',[email, contrasenia], (err, rows) => {
+        if(!err) {
+          res.status(200).json(rows.rows);
+        } else {
+          console.log(err);
+        } 
       });
     });
 
