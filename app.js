@@ -18,7 +18,6 @@ app.use(function(req, res, next){
 //app.use('/api/usuario', usuarioRouter);
 //app.use('/api/animales', animalesRouter);
 
-
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), () => {
@@ -74,6 +73,17 @@ app.listen(app.get('port'), () => {
       });
     });
 
+    app.get('/anuncio/:id', (req,res) => {
+      const id = req.params.id;
+      pool.query('SELECT * FROM animales WHERE idusuario=$1',[id], (err, rows) => {
+        if(!err) {
+          res.json(rows.rows);
+        } else {
+          console.log(err);
+        } 
+      });
+    });
+
     app.post('/animales', (req, res) => {
       const data = {
         tipo : req.body.tipo ,
@@ -116,7 +126,7 @@ app.listen(app.get('port'), () => {
               }
               
               pool.connect((err, client, done) => {
-                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia, imagen) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia, imagen) VALUES ($1, $2, $3, $4, $5, MD5($6), $7) RETURNING *';
                 const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen];
             
                 client.query(query, values, (error, result) => {
@@ -137,7 +147,7 @@ app.listen(app.get('port'), () => {
 
     app.post('/login',(req,res)=>{
       const response = {email, contrasenia} = req.body;
-      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=$2',[email, contrasenia], (err, rows) => {
+      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=MD5($2)',[email, contrasenia], (err, rows) => {
         if(rows.rows < '1') {
           res.status(400).send({
           status: 'Failed',
