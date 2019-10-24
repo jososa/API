@@ -95,11 +95,13 @@ app.listen(app.get('port'), () => {
         estado : req.body.estado,
         imagen : req.body.imagen,
         idusuario : req.body.idusuario,
+        fchalta : req.body.fchalta,
+        fchmodif : req.body.fchmodif,
       }
       
       pool.connect((err, client, done) => {
-        const query = 'INSERT INTO animales (tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
-        const values = [data.tipo, data.raza, data.genero, data.descripcion, data.latitud, data.longitud, data.estado, data.imagen, data.idusuario];
+        const query = 'INSERT INTO animales (tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, fchalta, fchmodif) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
+        const values = [data.tipo, data.raza, data.genero, data.descripcion, data.latitud, data.longitud, data.estado, data.imagen, data.idusuario, data.fchalta, data.fchmodif];
     
         client.query(query, values, (error, result) => {
           done();
@@ -174,9 +176,9 @@ app.listen(app.get('port'), () => {
 
     app.put('/animales/:id',(req,res)=>{
       const id = req.params.id;
-      const response = {tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario} = req.body;
-      pool.query('UPDATE animales SET tipo=$1, raza=$2, genero=$3, descripcion=$4, latitud=$5, longitud=$6, estado=$7, imagen=$8, idusuario=$9 WHERE idanimal=$10',
-      [tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, id]);
+      const response = {tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, fchalta, fchmodif} = req.body;
+      pool.query('UPDATE animales SET tipo=$1, raza=$2, genero=$3, descripcion=$4, latitud=$5, longitud=$6, estado=$7, imagen=$8, idusuario=$9, fchalta=$10, fchmodif=$11 WHERE idanimal=$12',
+      [tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, fchalta, fchmodif, id]);
       console.log(response);
       res.json('Animal Updated successfully');
     });
