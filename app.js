@@ -52,10 +52,10 @@ app.listen(app.get('port'), () => {
       });
 
       app.get('/encontrado',(req, res) => {
-        const values = ["Encontrado"];
-        pool.query('SELECT * FROM animales where estado = $1',[values], (err, rows) => {
+        const response = {Encontrado} = req.body;
+        pool.query('SELECT * FROM animales where estado = $1',[response], (err, rows) => {
           if(!err) {
-            res.json(rows.values);
+            res.json(rows.rows);
           } else {
             console.log(err);
           } 
@@ -63,11 +63,10 @@ app.listen(app.get('port'), () => {
         });
 
         app.get('/perdido',(req, res) => {
-          const values = ["Perdido"];
-          pool.query('SELECT * FROM animales where estado = $1',[values], (err, rows) => {
+          const response = {Perdido} = req.body;
+          pool.query('SELECT * FROM animales where estado = $1',[response], (err, rows) => {
             if(!err) {
-              console.log(values.rows);
-              res.json(rows.values);
+              res.json(rows.rows);
             } else {
               console.log(err);
             } 
