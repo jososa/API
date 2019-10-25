@@ -52,8 +52,8 @@ app.listen(app.get('port'), () => {
       });
 
       app.get('/encontrado',(req, res) => {
-        const response = {Encontrado} = req.body;
-        pool.query('SELECT * FROM animales where estado = $1',[response], (err, rows) => {
+        //const response = {Encontrado} = req.body;
+        pool.query('SELECT * FROM animales where estado = $1',["Encontrado"], (err, rows) => {
           if(!err) {
             res.json(rows.rows);
           } else {
