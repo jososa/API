@@ -158,7 +158,7 @@ app.listen(app.get('port'), () => {
         } else {
           res.status(200).send({
           status: 'Successful',
-          message: 'Login Information retrieved',
+          //message: 'Login Information retrieved',
           //usuarios: rows.rows,
           result: rows.rows[0],
           });
