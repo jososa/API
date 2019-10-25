@@ -51,6 +51,26 @@ app.listen(app.get('port'), () => {
       });
       });
 
+      app.get('/encontrado',(req, res) => {
+        pool.query('SELECT * FROM animales where estado="Encontrado"', (err, rows) => {
+          if(!err) {
+            res.json(rows.rows);
+          } else {
+            console.log(err);
+          } 
+        });
+        });
+
+        app.get('/perdido',(req, res) => {
+          pool.query('SELECT * FROM animales where estado="Perdido"', (err, rows) => {
+            if(!err) {
+              res.json(rows.rows);
+            } else {
+              console.log(err);
+            } 
+          });
+          });
+
     app.get('/usuario/:id', (req,res) => {
       const id = req.params.id;
       pool.query('SELECT * FROM usuarios WHERE idusuario=$1',[id], (err, rows) => {
