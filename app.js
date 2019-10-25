@@ -160,7 +160,7 @@ app.listen(app.get('port'), () => {
           status: 'Successful',
           message: 'Login Information retrieved',
           //usuarios: rows.rows,
-          result: result.rows[0],
+          result: rows.rows[0],
           });
         } 
       });
