@@ -55,7 +55,7 @@ app.listen(app.get('port'), () => {
         const values = ["Encontrado"];
         pool.query('SELECT * FROM animales where estado = $1',[values], (err, rows) => {
           if(!err) {
-            res.json(rows.rows);
+            res.json(rows.values);
           } else {
             console.log(err);
           } 
@@ -66,7 +66,7 @@ app.listen(app.get('port'), () => {
           const values = ["Perdido"];
           pool.query('SELECT * FROM animales where estado = $1',[values], (err, rows) => {
             if(!err) {
-              res.json(rows.rows);
+              res.json(rows.values);
             } else {
               console.log(err);
             } 
