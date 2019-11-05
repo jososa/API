@@ -74,7 +74,7 @@ app.listen(app.get('port'), () => {
     app.get('/usuario/:id', (req,res) => {
       const id = req.params.id;
       const aes = 'AES_KEY';
-      pool.query('SELECT nombre, apellido, fnacimiento, email, telefono, PGP_SYM_DECRYPT(CAST(contrasenia AS BYTEA), $1) as contrasenia, imagen FROM usuarios WHERE idusuario=$2',[id],[aes], (err, rows) => {
+      pool.query('SELECT nombre, apellido, fnacimiento, email, telefono, PGP_SYM_DECRYPT(CAST(contrasenia AS BYTEA), $1) as contrasenia, imagen FROM usuarios WHERE idusuario=$2',[id, aes] (err, rows) => {
         if(!err) {
           res.json(rows.rows);
         } else {
