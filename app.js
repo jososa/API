@@ -169,7 +169,7 @@ app.listen(app.get('port'), () => {
 
     app.post('/login',(req,res)=>{
       const response = {email, contrasenia} = req.body;
-      pool.query('SELECT * FROM usuarios WHERE email=$1 AND contrasenia=PGP_SYM_ENCRYPT($2, $3)',[email, contrasenia, 'AES_KEY'], (err, rows) => {
+      pool.query('SELECT * FROM usuarios WHERE email=$1 AND PGP_SYM_DECRYPT(contrasenia::bytea, $2)=$3',[email, 'AES_KEY', contrasenia], (err, rows) => {
         if(rows.rows < '1') {
           res.status(400).send({
           status: 'Failed',
