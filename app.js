@@ -148,8 +148,8 @@ app.listen(app.get('port'), () => {
               }
               
               pool.connect((err, client, done) => {
-                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia, imagen) VALUES ($1, $2, $3, $4, $5, MD5($6), $7) RETURNING *';
-                const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen];
+                const query = 'INSERT INTO usuarios (nombre, apellido, fnacimiento, email, telefono, contrasenia, imagen) VALUES ($1, $2, $3, $4, $5, PGP_SYM_ENCRYPT($6, $7), $8) RETURNING *';
+                const values = [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, 'AES_KEY', data.imagen];
             
                 client.query(query, values, (error, result) => {
                   done();
