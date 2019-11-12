@@ -202,12 +202,12 @@ app.put('/usuario/:id',(req,res)=>{
     [nombre,apellido,fnacimiento,email,telefono,contrasenia,'AES_KEY',imagen, id],
     (error, results) => {
       if (error) {
-         response.status(400).send({
+        res.status(400).send({
          status: 'Failed',
          message: 'Email already exists',
          });
       }
-      response.status(200).send({
+      res.status(200).send({
         status: 'OK',
         message: 'User Updated successfully',
         });
