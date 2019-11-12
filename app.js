@@ -199,21 +199,17 @@ app.put('/usuario/:id',(req,res)=>{
   const id = req.params.id;
   const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia,imagen} = req.body;
   pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=PGP_SYM_ENCRYPT($6, $7), imagen=$8 WHERE idusuario=$9',
-  [nombre,apellido,fnacimiento,email,telefono,contrasenia,'AES_KEY',imagen, id]);
-
-  client.query(query, response, (error, result) => {
-              done();
-              if (error) {
-                res.status(400).send({
-                  status: 'Failed',
-                  message: 'Email already exists',
-                  });
-              }
-              res.status(200).send({
-                status: 'User Updated successfully',
-                result: result.rows[0],
-              });
-            });
+    [nombre,apellido,fnacimiento,email,telefono,contrasenia,'AES_KEY',imagen, id],
+    (error, results) => {
+      if (error) {
+         response.status(400).send({
+         status: 'Failed',
+         message: 'Email already exists',
+         });
+      }
+      response.status(200).send('User Updated successfully')
+    }
+  )
 });
 
     app.put('/animales/:id',(req,res)=>{
