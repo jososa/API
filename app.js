@@ -207,9 +207,12 @@ app.put('/usuario/:id',(req,res)=>{
          message: 'Email already exists',
          });
       }
-      response.status(200).send('User Updated successfully')
+      response.status(200).send({
+        status: 'OK',
+        message: 'User Updated successfully',
+        });
     }
-  )
+  );
 });
 
     app.put('/animales/:id',(req,res)=>{
