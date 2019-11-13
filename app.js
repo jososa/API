@@ -185,23 +185,16 @@ app.listen(app.get('port'), () => {
         } 
       });
     });
-
-    app.delete('/animal/:id',(req,res)=>{
+/*
+    app.put('/usuario/:id',(req,res)=>{
       const id = req.params.id;
-      pool.query('DELETE FROM animales WHERE idanimal=$1',[id], (err, rows) => {
-        if(!err) {
-          res.status(200).send({
-            status: 'Deleted successfully',
-            //message: 'Login Information retrieved',
-            //usuarios: rows.rows,
-            //result: rows.rows[0],
-            });
-        } else {
-          console.log(err);
-        } 
-      });
+      const response = {nombre,apellido,fnacimiento,email,telefono,contrasenia,imagen} = req.body;
+      pool.query('UPDATE usuarios SET nombre=$1, apellido=$2, fnacimiento=$3, email=$4, telefono=$5, contrasenia=PGP_SYM_ENCRYPT($6, $7), imagen=$8 WHERE idusuario=$9',
+      [nombre,apellido,fnacimiento,email,telefono,contrasenia,'AES_KEY',imagen, id]);
+      console.log(response);
+      res.json('User Updated successfully');
     });
-
+*/
 
 app.put('/usuario/:id',(req,res)=>{
   const id = req.params.id;
@@ -232,6 +225,15 @@ app.put('/usuario/:id',(req,res)=>{
       res.json('Animal Updated successfully');
     });
 
-
+    app.delete('/animales/:id', (req,res) => {
+      const id = req.params.id;
+      pool.query('DELETE FROM animales WHERE idanimal=$1',[id], (err, rows) => {
+        if(!err) {
+          res.json('Animal deleted successfully');
+        } else {
+          console.log(err);
+        } 
+      });
+    });
     
 module.exports = router;
