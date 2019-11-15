@@ -105,7 +105,8 @@ app.listen(app.get('port'), () => {
     });
 
     app.get('/chart',(req, res) => {
-      pool.query('select estado, count(*) as cantidad from animales where estado in (',["Perdido"], ["Encontrado"], ["Finalizado"],') group by estado having count(*) > 1', (err, rows) => {
+      const estado = ["Perdido","Encontrado","Finalizado"]
+      pool.query('select estado, count(*) as cantidad from animales where estado in ($1) group by estado having count(*) > 1',[estado], (err, rows) => {
         if(!err) {
           res.json(rows.rows);
         } else {
