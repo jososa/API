@@ -105,11 +105,10 @@ app.listen(app.get('port'), () => {
     });
 
     app.get('/chart',(req, res) => {
-      const estado = ["Perdido","Encontrado","Finalizado"]
-      pool.query('select estado, count(*) as cantidad from animales where estado in ($1) group by estado having count(*) > 1',[estado], (err, rows) => {
+      const estado = ["Encontrado"];
+      pool.query('select COUNT(estado) as estado from animales where estado=$1',[estado], (err, rows) => {
         if(!err) {
-          console.log(res.json(rows.rows[0]));
-          res.json(rows.rows[0]);
+          res.json(rows.rows);
         } else {
           console.log(err);
         } 
