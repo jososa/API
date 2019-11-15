@@ -108,8 +108,8 @@ app.listen(app.get('port'), () => {
       const estado = ["Perdido","Encontrado","Finalizado"]
       pool.query('select estado, count(*) as cantidad from animales where estado in ($1) group by estado having count(*) > 1',[estado], (err, rows) => {
         if(!err) {
-          console.log(res.json(rows.rows));
-          res.json(rows.rows);
+          console.log(res.json(rows.rows[0]));
+          res.json(rows.rows[0]);
         } else {
           console.log(err);
         } 
