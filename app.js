@@ -108,7 +108,7 @@ app.listen(app.get('port'), () => {
       const estado = ["Encontrado"];
       pool.query('select COUNT(estado) as estado from animales where estado=$1',[estado], (err, rows) => {
         if(!err) {
-          res.json(rows.rows.estado);
+          res.json(rows[0].estado);
         } else {
           console.log(err);
         } 
