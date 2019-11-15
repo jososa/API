@@ -106,7 +106,7 @@ app.listen(app.get('port'), () => {
 
     app.get('/chart',(req, res) => {
       const estado = ["Encontrado"];
-      pool.query('select COUNT(estado) as estado from animales where estado=$1',[estado], (err, rows) => {
+      pool.query('select COUNT(estado) ::INTEGER as estado from animales where estado=$1',[estado], (err, rows) => {
         if(!err) {
           res.json(rows.rows);
         } else {
