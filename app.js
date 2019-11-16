@@ -104,7 +104,7 @@ app.listen(app.get('port'), () => {
       });
     });
 
-    app.get('/animales/chart',(req, res) => {
+    app.get('/chart',(req, res) => {
       pool.query('SELECT DISTINCT (SELECT COUNT(*) FROM animales WHERE estado = $1) As Perdido, (SELECT COUNT(*) FROM animales WHERE estado = $2) As Encontrado, (SELECT COUNT(*) FROM animales WHERE estado = $3) As Finalizado FROM animales',["Perdido","Encontrado","Finalizado"], (err, rows) => {
         if(!err) {
           res.json(rows.rows);
