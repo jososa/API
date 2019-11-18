@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var bodyParser = require("body-parser");
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'secretkey123456';
 //var usuarioRouter = require("./routes/usuario");
 //var animalesRouter = require("./routes/animales");
 
@@ -186,6 +188,33 @@ app.listen(app.get('port'), () => {
           message: 'Usuario y/o Contraseña incorrecto',
           });
         } else {
+          res.status(200).send({
+          status: 'Successful',
+          //message: 'Login Information retrieved',
+          //usuarios: rows.rows,
+          result: rows.rows[0],
+          });
+        } 
+      });
+    });
+
+    app.post('/admin',(req,res)=>{
+      const response = {email, contrasenia} = req.body;
+      pool.query('SELECT * FROM administrador WHERE email=$1 AND PGP_SYM_DECRYPT(contrasenia::bytea, $2)=$3',[email, 'AES_KEY', contrasenia], (err, rows) => {
+        if(rows.rows < '1') {
+          res.status(400).send({
+          status: 'Failed',
+          message: 'Usuario y/o Contraseña incorrecto',
+          });
+        } else {
+          const expiresIn = 24 * 60 * 60;
+          const accessToken = jwt.sign({idadmin: rows.idadmin}, SECRET_KEY, {expiresIn: expiresIn});
+          const dataUser = {
+            email: rows.email,
+            accessToken: accessToken,
+            expiresIn: expiresIn
+          }
+          res.send({dataUser});
           res.status(200).send({
           status: 'Successful',
           //message: 'Login Information retrieved',
