@@ -171,7 +171,7 @@ app.listen(app.get('port'), () => {
                       message: 'Email ya existente',
                       });
                   }
-                  console.log(values[7]);
+                  console.log(values);
                   res.status(200).send({
                     status: 'OK',
                     result: result.rows[0],
