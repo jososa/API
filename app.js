@@ -167,12 +167,13 @@ app.listen(app.get('port'), () => {
                   done();
                   if (error) {
                     res.status(400).send({
-                      status: 'Failed',
-                      message: 'Email already exists',
+                      status: 'Error',
+                      message: 'Email ya existente',
                       });
                   }
+                  console.log(values[0]);
                   res.status(200).send({
-                    status: 'Successful',
+                    status: 'OK',
                     result: result.rows[0],
                   });
                 });
