@@ -171,10 +171,10 @@ app.listen(app.get('port'), () => {
                       message: 'Email ya existente',
                       });
                   }
-                  console.log(data.contrasenia);
+                  //console.log();
                   res.status(200).send({
                     status: 'OK',
-                    result: result.rows[0],
+                    result: [data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen],//result.rows[0],
                   });
                 });
               });
