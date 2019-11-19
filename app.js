@@ -141,7 +141,7 @@ app.listen(app.get('port'), () => {
             res.status(400).json({error});
           }
           res.status(200).send({
-            status: 'Successful',
+            status: 'OK',
             result: result.rows[0],
           });
         });
@@ -190,7 +190,7 @@ app.listen(app.get('port'), () => {
           });
         } else {
           res.status(200).send({
-          status: 'Successful',
+          status: 'OK',
           //message: 'Login Information retrieved',
           //usuarios: rows.rows,
           result: rows.rows[0],
@@ -204,7 +204,7 @@ app.listen(app.get('port'), () => {
       pool.query('SELECT * FROM administrador WHERE email=$1 AND PGP_SYM_DECRYPT(contrasenia::bytea, $2)=$3',[email, 'AES_KEY', contrasenia], (err, rows) => {
         if(rows.rows < '1') {
           res.status(400).send({
-          status: 'Failed',
+          status: 'Error',
           message: 'Usuario y/o Contraseña incorrecto',
           });
         } else {
@@ -217,7 +217,7 @@ app.listen(app.get('port'), () => {
           }
           res.send({dataUser});
           res.status(200).send({
-          status: 'Successful',
+          status: 'OK',
           //message: 'Login Information retrieved',
           //usuarios: rows.rows,
           result: rows.rows[0],
@@ -234,13 +234,13 @@ app.put('/usuario/:id',(req,res)=>{
     (error, results) => {
       if (error) {
         res.status(400).send({
-         status: 'Failed',
-         message: 'Email already exists',
+         status: 'Error',
+         message: 'Email ya existente',
          });
       }
       res.status(200).send({
         status: 'OK',
-        message: 'User Updated successfully',
+        message: 'Usuario actualizado correctamente',
         });
     }
   );
@@ -252,14 +252,14 @@ app.put('/usuario/:id',(req,res)=>{
       pool.query('UPDATE animales SET tipo=$1, raza=$2, genero=$3, descripcion=$4, latitud=$5, longitud=$6, estado=$7, imagen=$8, idusuario=$9, fchalta=$10, fchmodif=$11 WHERE idanimal=$12',
       [tipo, raza, genero, descripcion, latitud, longitud, estado, imagen, idusuario, fchalta, fchmodif, id]);
       console.log(response);
-      res.json('Animal Updated successfully');
+      res.json('Animal actualizado correctamente');
     });
 
     app.delete('/animales/:id', (req,res) => {
       const id = req.params.id;
       pool.query('DELETE FROM animales WHERE idanimal=$1',[id], (err, rows) => {
         if(!err) {
-          res.json('Animal deleted successfully');
+          res.json('Animal eliminado correctamente');
         } else {
           console.log(err);
         } 
