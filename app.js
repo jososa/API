@@ -54,7 +54,7 @@ app.listen(app.get('port'), () => {
       });
 
       app.get('/encontrado',(req, res) => {
-        pool.query('SELECT * FROM animales where estado = $1',["Encontrado"], (err, rows) => {
+        pool.query('SELECT DISTINCT ani.*, usu.nombre, usu.apellido, usu.email, usu.telefono FROM animales ani INNER JOIN usuarios usu ON ani.idusuario = usu.idusuario WHERE ani.estado = $1',["Encontrado"], (err, rows) => {
           if(!err) {
             res.json(rows.rows);
           } else {
