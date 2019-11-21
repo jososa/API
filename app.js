@@ -174,7 +174,7 @@ app.listen(app.get('port'), () => {
                   //console.log();
                   res.status(200).send({
                     status: 'OK',
-                    result: [result.rows[0].idusuario, data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen],//,
+                    result: [JSON.stringify(result.rows[0].idusuario), data.nombre, data.apellido, data.fnacimiento, data.email, data.telefono, data.contrasenia, data.imagen],//,
                   });
                 });
               });
